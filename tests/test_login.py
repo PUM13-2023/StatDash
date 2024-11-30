@@ -1,10 +1,10 @@
 """Test login capabilities of the app."""
 import pytest
-from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from tests import helper_test_functions as helper
 from tests import settings
+from tests.settings import DriverType
 
 # Login credentials for the unvalid test user
 WRONG_PASSWORD = "not_valid_user_password"
@@ -19,7 +19,7 @@ class TestLogin:
     """A class to group functions to test the login capabilities."""
 
     @pytest.mark.usefixtures("start_server")
-    def test_unsuccessful_login(self, browser_driver: webdriver):
+    def test_unsuccessful_login(self, browser_driver: DriverType):
         """Try to login with invalid username and password."""
         browser_driver.get(settings.START_PAGE_URL)
 
@@ -28,7 +28,7 @@ class TestLogin:
         self.check_login_error_pop_up(browser_driver)
 
     @pytest.mark.usefixtures("start_server")
-    def test_successfull_login(self, browser_driver: webdriver):
+    def test_successfull_login(self, browser_driver: DriverType):
         """Try to login to the system."""
         browser_driver.get(settings.START_PAGE_URL)
         helper.try_login(browser_driver, settings.USERS_USERNAME, settings.USERS_PASSWORD)
@@ -41,7 +41,7 @@ class TestLogin:
         helper.is_in_home_page(browser_driver)
 
     @pytest.mark.usefixtures("start_server")
-    def test_logout(self, browser_driver: webdriver):
+    def test_logout(self, browser_driver: DriverType):
         """A test that would try to log out from the system."""
         browser_driver.get(settings.START_PAGE_URL)
         helper.try_login(browser_driver, settings.USERS_USERNAME, settings.USERS_PASSWORD)
@@ -59,7 +59,7 @@ class TestLogin:
 
         helper.is_in_login_screen(browser_driver)
 
-    def check_login_error_pop_up(self, driver: webdriver) -> None:
+    def check_login_error_pop_up(self, driver: DriverType) -> None:
         """Check if the login pop up error is correctly implemented.
 
         This function test checks if the login pop up error by first
@@ -71,7 +71,7 @@ class TestLogin:
         visible when calling this functions.
 
         Args:
-            driver (webdriver): It is the webdriver in which
+            driver (DriverType): It is the DriverType in which
             we are going to check if the popup exist.
         """
         # Check if the login error pop up exist and then
@@ -82,14 +82,14 @@ class TestLogin:
         driver.refresh()
         assert not self.error_pop_up_exist(driver), pop_up_refresh_msg
 
-    def error_pop_up_exist(self, driver: webdriver) -> bool:
+    def error_pop_up_exist(self, driver: DriverType) -> bool:
         """Check if pop up error exist.
 
         It will return false if it does not exist and true if the
         popup error exist.
 
         Args:
-            driver (webdriver): It is the webdriver in which
+            driver (DriverType): It is the DriverType in which
             we are going to
 
             check if the popup exist.

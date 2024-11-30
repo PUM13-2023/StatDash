@@ -1,11 +1,11 @@
 """Helper functions for test."""
 
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
+from tests.settings import DriverType
 
 from . import settings
 
@@ -24,7 +24,7 @@ ID_LOGIN_BUTTON_ELEMENT = "login_button"
 ID_LOGOUT_ELEMENT = "logout_element"
 
 
-def is_in_login_screen(driver: webdriver) -> None:
+def is_in_login_screen(driver: DriverType) -> None:
     """Check if the driver is currently at the login screen.
 
     This functions checks if the driver is in the login screen
@@ -38,7 +38,7 @@ def is_in_login_screen(driver: webdriver) -> None:
     assert get_element_by_id(driver, ID_PASSWORD_ELEMENT) is not None, msg
 
 
-def is_in_home_page(driver: webdriver) -> None:
+def is_in_home_page(driver: DriverType) -> None:
     """Check if the driver is currently at the home page.
 
     This functions checks if the driver is in the home page
@@ -53,7 +53,7 @@ def is_in_home_page(driver: webdriver) -> None:
     # assert get_element_by_id(driver, ID_LOGOUT_ELEMENT) is not None
 
 
-def try_login(driver: webdriver, username: str, password: str) -> None:
+def try_login(driver: DriverType, username: str, password: str) -> None:
     """Try to login to the homepage.
 
     This functions tries to login to the home page.
@@ -80,7 +80,7 @@ def try_login(driver: webdriver, username: str, password: str) -> None:
     login_button.click()
 
 
-def get_element_by_id(driver: webdriver, element_id: str) -> WebElement:
+def get_element_by_id(driver: DriverType, element_id: str) -> WebElement:
     """Get element by their id.
 
     This function would try to get the element by id. If the
@@ -108,11 +108,11 @@ def get_element_by_id(driver: webdriver, element_id: str) -> WebElement:
     return elements[0]
 
 
-def get_element_by_css_selector(driver: webdriver, css_selector: str) -> WebElement:
+def get_element_by_css_selector(driver: DriverType, css_selector: str) -> WebElement:
     """Get element using a css selector.
 
     Args:
-        driver (webdriver): The web driver to use.
+        driver (webdriver): The webdriver to use.
         css_selector (str): The css slector to use. This
         can be copied from your browser's web tools when
         inspecting the relevant element.

@@ -1,11 +1,11 @@
 """Test for navbar functionality."""
 import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from tests import helper_test_functions as helper
 from tests import settings
+from tests.settings import DriverType
 
 NAVBAR_COUNT = 4
 NAVBAR_CONTAINER_ID = "main-navbar"
@@ -19,7 +19,7 @@ class TestNavbarComponent:
     """Class that tests the Navbar component."""
 
     @pytest.mark.usefixtures("start_server")
-    def test_find_navbar(self, browser_driver: webdriver) -> None:
+    def test_find_navbar(self, browser_driver: DriverType) -> None:
         """Test that a navbar element exists on the page."""
         browser_driver.get(settings.URL)
 
@@ -32,7 +32,7 @@ class TestNavbarComponent:
         assert navbar, "Navbar could not be found"
 
     @pytest.mark.usefixtures("start_server")
-    def test_find_buttons(self, browser_driver: webdriver) -> None:
+    def test_find_buttons(self, browser_driver: DriverType) -> None:
         """Test that the navbar items exist on the page."""
         browser_driver.get(settings.URL)
         WebDriverWait(browser_driver, settings.NORMAL_TIMEOUT).until(
@@ -46,7 +46,7 @@ class TestNavbarComponent:
         assert len(navbar_items) == NAVBAR_COUNT, "Navbar items do not exist"
 
     @pytest.mark.usefixtures("start_server")
-    def test_redirect(self, browser_driver: webdriver) -> None:
+    def test_redirect(self, browser_driver: DriverType) -> None:
         """Test so Shared Dashboards item redirects to correct page."""
         browser_driver.get(settings.URL)
 
@@ -72,7 +72,7 @@ class TestNavbarComponent:
         )
 
     def redirect_navbar(
-        self, browser_driver: webdriver, element_id: str, browser_url: str, page: str
+        self, browser_driver: DriverType, element_id: str, browser_url: str, page: str
     ):
         """Helper to test_redirect navbar that presses the element."""
         # Press the dashboard button and

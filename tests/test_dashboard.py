@@ -1,8 +1,8 @@
 """Test login capabilities of the app."""
 
 import pytest
-from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
+from tests.settings import DriverType
 
 from . import helper_test_functions as helper
 from . import settings
@@ -45,7 +45,7 @@ class TestCreateDashboard:
 
     @pytest.mark.test_creating_home_page
     @pytest.mark.usefixtures("browser_driver")
-    def test_creating_home_page(self, browser_driver: webdriver):
+    def test_creating_home_page(self, browser_driver: DriverType):
         """Try to create the dashboard from the home screen.
 
         This function would login the homepage and then press the
@@ -97,7 +97,7 @@ class TestCreateDashboard:
         self.check_dashboard_created(browser_driver, DASHBOARD_TITLE_1)
 
     @pytest.mark.test_creating_dashboard_page
-    def test_creating_dashboard_page(self, browser_driver: webdriver):
+    def test_creating_dashboard_page(self, browser_driver: DriverType):
         """Try to create a dashboard from the dashboard page.
 
         This function would login the homepage and then press the
@@ -147,7 +147,7 @@ class TestCreateDashboard:
         # Test if the dashboard was created
         self.check_dashboard_created(browser_driver, DASHBOARD_TITLE_2)
 
-    def check_dashboard_created(self, browser_driver: webdriver, dashboard_title: str) -> None:
+    def check_dashboard_created(self, browser_driver: DriverType, dashboard_title: str) -> None:
         """Check if the dashboard was created with the given title.
 
         This function checks if the created dashboard has the right
@@ -155,8 +155,8 @@ class TestCreateDashboard:
         inside the dashboard that has been created.
 
         Args:
-            browser_driver (webdriver): It is the webdriver in which we
-            are going to check if the popup exist.
+            browser_driver (webdriver): It is the webdriver in which
+            we are going to check if the popup exist.
 
             dashboard_title (str): The title of the dashboard that
             was created.
